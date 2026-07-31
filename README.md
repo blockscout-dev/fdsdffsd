@@ -22,14 +22,15 @@
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a2740,100:05070d&height=3&section=header" width="100%" />
 
-This repository holds the Solidity source for the ponsfamily.com token launchpad, covering both the original **v1** contracts (deployed on Robinhood Chain) and the newer **v2** contracts. v1 is a CREATE2 factory that mints a fixed-supply ERC-20 token, opens a one-sided Uniswap V3 liquidity position, locks the position NFT, and can optionally run a developer buy in the same launch transaction. v2 replaces the one-sided V3 position with a bonding curve that graduates into a locked Uniswap V4 pool — see [Pons v2](#pons-v2) below for details.
+This repository holds the Solidity source for the ponsfamily.com token launchpad, deployed on Robinhood Chain. It is a CREATE2 factory that mints a fixed-supply ERC-20 token, opens a one-sided Uniswap V3 liquidity position, locks the position NFT, and can optionally run a developer buy in the same launch transaction.
 
 Website: [ponsfamily.com](https://ponsfamily.com) · Twitter/X: [@ponsdotfamily](https://x.com/ponsdotfamily)
+
+> **v2 has arrived.** Alongside the v1 contracts documented in this README, pons now also has a v2 launchpad: instead of a one-sided Uniswap V3 position, tokens launch on a bonding curve that graduates into a locked Uniswap V4 pool once a threshold is reached.
 
 ## Table of contents
 
 - [Why this launchpad](#why-this-launchpad)
-- [Pons v2](#pons-v2)
 - [Deployed factory](#deployed-factory)
 - [Stack](#stack)
 - [Repository layout](#repository-layout)
@@ -53,10 +54,6 @@ Key features:
 - Anti-snipe limits during the launch window: same-block buy blocking, a per-wallet cap, and a cumulative buy cap
 - Optional developer buy, settled atomically in the same transaction as the launch
 - Graduation status calculated from the capital actually locked in the pool, not from wallet balances that can be faked
-
-## Pons v2
-
-v2 has arrived. Where v1 gives every launch a one-sided Uniswap V3 position from the first block, v2 launches on a bonding curve instead: the token trades against a virtual reserve until a graduation threshold is hit, at which point it graduates automatically into a permanently locked Uniswap V4 pool (with fees handled by a v4 hook rather than the pool itself). The v1 contracts described in the rest of this README continue to run unchanged; v2 is documented separately and does not replace them here.
 
 ## Deployed factory
 
